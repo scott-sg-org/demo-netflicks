@@ -357,3 +357,12 @@ deploy/
 .DS_Store
 /e2e/tmp/
 tmp/admin.json
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/playwright/.cache/
