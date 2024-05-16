@@ -55,9 +55,11 @@ namespace DotNetFlicks.Accessors.Accessors
                 query = query.Where(x => x.Name.ToLower().Contains(request.Search.ToLower()));
                 //_db.Database.ExecuteSqlRaw("INSERT INTO UserSearches ([UserId],[SearchTerm]) Values ('" + request.UserId + "','" + request.Search + "')");
                 //test
-                var entity = UserSearches();
-                entity.UserId = request.UserId;
-                entity.SearchTerm = request.SearchTerm;
+                var entity = new UserSearch
+                {
+                    UserId = request.UserId,
+                    SearchTerm = request.Search
+                };
                 _db.UserSearches.Add(entity);
             }
 
