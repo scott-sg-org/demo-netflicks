@@ -16,7 +16,7 @@ else
   docker compose -f docker-compose.yml up -d
 fi
 
-sleep 30
+sleep 10
 
 #This script takes hostname as a parameter. If no paramter is provided, then hostname will default to localhost
 # Check if at least one parameter is provided
@@ -45,7 +45,7 @@ check_application_running() {
 }
 
 # Maximum number of attempts to check if the application is running
-max_attempts=30
+max_attempts=15
 current_attempt=0
 while [ $current_attempt -lt $max_attempts ]; do
     if check_application_running; then
@@ -54,7 +54,7 @@ while [ $current_attempt -lt $max_attempts ]; do
         exit 0
     else
         echo "Application not yet started. Waiting...trying again in 5 seconds"
-        sleep 5
+        sleep 3
         ((current_attempt++))
     fi
 done
