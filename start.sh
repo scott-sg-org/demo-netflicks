@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Check if any Netflicks Demo app is currently running
-#if pgrep -f java > /dev/null; then
-#    echo "[!ERROR] It seems like a process of Terracotta Bank is already running. Please run './stop.sh' before trying to start the application."
-#    exit 1
-#fi
+# TODO - use docker compose to check for running and reset
 
 # Before Starting the Application we will update the Session Metadata
-set-session-data.sh
+/root/netflicks/set-session-data.sh
 
-echo " Starting Netflicks Demo application as a separate process. This may take up to 30 seconds!"
+echo "Starting Netflicks Demo application. This may take up to 2 minutes!"
+
+docker compose -f docker-compose.yml up -d
+
 sleep 30
 
 #This script takes hostname as a parameter. If no paramter is provided, then hostname will default to localhost
@@ -19,7 +19,6 @@ sleep 30
 
 if [ "$#" -eq 0 ]; then
     hostname='http://localhost'
-    echo "You can also provide a custom hostname as a parameter"
 else
         hostname="$1"
 fi
@@ -40,7 +39,7 @@ check_application_running() {
 }
 
 # Maximum number of attempts to check if the application is running
-max_attempts=50
+max_attempts=30
 current_attempt=0
 while [ $current_attempt -lt $max_attempts ]; do
     if check_application_running; then
@@ -48,8 +47,8 @@ while [ $current_attempt -lt $max_attempts ]; do
             echo "Application started successfully."
         exit 0
     else
-        echo "Application not yet started. Waiting...trying again in 3 seconds"
-        sleep 3
+        echo "Application not yet started. Waiting...trying again in 5 seconds"
+        sleep 5
         ((current_attempt++))
     fi
 done
