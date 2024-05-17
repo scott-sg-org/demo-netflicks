@@ -8,7 +8,13 @@
 
 echo "Starting Netflicks Demo application. This may take up to 2 minutes!"
 
-docker compose -f docker-compose.yml up -d
+echo "$1"
+
+if [ "$1" = "fixed" ]; then
+  docker compose -f docker-compose-fixed.yml up -d
+else
+  docker compose -f docker-compose.yml up -d
+fi
 
 sleep 30
 
