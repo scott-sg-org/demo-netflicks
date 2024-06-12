@@ -18,7 +18,8 @@ services:
   web:
     image: netflicks:1.1
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     ports:
       - '8081:80'
     volumes:
